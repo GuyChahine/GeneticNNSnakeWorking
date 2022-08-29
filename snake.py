@@ -172,7 +172,7 @@ class Snake():
         
         elif display_mod == 'testing':
             
-            weights = read_last_generation()[-1]
+            weights = read_last_generation()[0]
             model = NeuralNetwork()
             model.set_weights(weights)
             
@@ -211,4 +211,5 @@ class Snake():
 if __name__ == "__main__":
     snake1 = Snake(
         display_mod='testing',
+        refresh_time=100
     )

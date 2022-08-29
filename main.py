@@ -21,7 +21,7 @@ def NN_playthegame(weights):
     model.set_weights(weights)
     
     results = snake.get_results()
-    while results['alive'] and results['last_eat'] <= MAX_STEP and results['step'] <= 100:
+    while results['alive'] and results['last_eat'] <= MAX_STEP and results['step'] <= 500:
         y = model.predict(get_input(snake.get_info(), snake.nb_square))
         snake.output_handler(y.argmax())
         snake.updater()
@@ -40,22 +40,22 @@ def main(p):
     results = results[(results.T[1]).argsort()[::-1]]
     
     write_last_generation(results.T[0])
-    write_information(results.T[1][0])
+    write_information(results.T[1])
     
     
     
 if __name__ == "__main__":
-    NB_AGENT = 1000
+    NB_AGENT = 128
     LAYERS = [
-        (8,""),
-        (16,"relu"),
-        (16,"relu"),
+        (4,""),
+        #(8,"relu"),
+        #(8,"relu"),
         (4,"sigmoid"),
     ]
 
-    with LoadingBar(10000) as bar:
+    with LoadingBar(50000) as bar:
         with Pool(processes=16) as p:
-            for i in range(10000):
+            for i in range(50000):
                 main(p)
                 infos = read_information()
-                bar(Generation_Number = infos.index[-1], Best_Fitness = np.round(np.average(infos.loc[:, 'fitness'].to_numpy()),2))
+                bar(Generation_Number = infos.index[-1], Average_Fitness = np.round(infos.fitness.to_numpy()[-1], 2))

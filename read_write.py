@@ -2,6 +2,7 @@ import pickle
 from os.path import exists
 from datetime import datetime
 import pandas as pd
+import numpy as np
 
 def write_last_generation(weights):
     with open("models/last_generation.pkl", "wb") as f:
@@ -25,7 +26,7 @@ def write_information(fitness):
         information,
         pd.DataFrame({
             "datetime": [pd.to_datetime(datetime.now())],
-            "fitness": [fitness],
+            "fitness": [np.average(fitness)],
         }),
     ]).reset_index(drop=True).to_pickle("models/information.pkl")
     

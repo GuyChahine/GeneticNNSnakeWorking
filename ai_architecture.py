@@ -7,10 +7,10 @@ def get_input(snake_food_info, nb_square):
 
     return np.array([
         # Distance bewtween the snake and the walls in 4 direction
-        snake_y,
-        nb_square - snake_y,
-        nb_square - snake_x,
-        snake_x,
+        #snake_y,
+        #nb_square - snake_y,
+        #nb_square - snake_x,
+        #snake_x,
         # Calculate the distance between the food and the snake in 4 direction  
         (food_y - snake_y) if (food_y - snake_y) > 0 else 0,
         (snake_y - food_y) if (snake_y - food_y) > 0 else 0,
