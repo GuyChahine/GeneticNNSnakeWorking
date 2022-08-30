@@ -12,7 +12,7 @@ def read_last_generation():
     with open("models/last_generation.pkl", "rb") as f:
         return pickle.load(f)
 
-def write_information(fitness):
+def write_information(fitness, step):
     
     if exists("models/information.pkl"):
         information = pd.read_pickle("models/information.pkl")
@@ -20,6 +20,7 @@ def write_information(fitness):
         information = pd.DataFrame({
             "datetime": [],
             "fitness": [],
+            "step": [],
         })
     
     pd.concat([
@@ -27,6 +28,7 @@ def write_information(fitness):
         pd.DataFrame({
             "datetime": [pd.to_datetime(datetime.now())],
             "fitness": [np.average(fitness)],
+            "step": [np.average(step)],
         }),
     ]).reset_index(drop=True).to_pickle("models/information.pkl")
     
